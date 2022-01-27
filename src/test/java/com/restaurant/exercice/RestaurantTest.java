@@ -1,11 +1,7 @@
 package com.restaurant.exercice;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import com.restaurant.model.Restaurant;
-import com.restaurant.model.Waiter;
+import com.restaurant.exercice.model.Restaurant;
+import com.restaurant.utils.builder.RestaurantBuilder;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -21,23 +17,18 @@ public class RestaurantTest {
     // CAS(Y = 1.0)
     @DisplayName("Test si le chiffre d'affaires du restaurant est égal à tous les chiffres d'affaires de tous les serveurs")
     @ParameterizedTest
-    @ValueSource(ints = {51})
-    public void testRestaurantDailyIncomesEqualsToAllWaitersDailyTotalPaidOrders(int nbWaiters){
+    @ValueSource(ints = { 0, 1, 2, 100 })
+    public void testRestaurantDailyIncomesEqualsToAllWaitersDailyTotalPaidOrders(int nbWaiters) {
         // Given
-        List<Waiter> waiters = new ArrayList<Waiter>(Collections.nCopies(nbWaiters, new Waiter("", "")));
-        Restaurant restaurant = new Restaurant(waiters);
+        int nbOfOrders = 1;
         int orderPrice = 1;
+        Restaurant restaurant = new RestaurantBuilder().withWaitersAndOrders(nbWaiters, nbOfOrders, orderPrice).build();
         int totalPrice = nbWaiters * orderPrice;
 
-        //When
-        for(Waiter waiter : restaurant.getWaiters()){
-            waiter.createOrder(orderPrice);
-            System.err.println(waiter.getDailyTotalPaidOrders());
-        }
+        // When
+        restaurant.calculateAllDailyTotalPaidOrders();
 
-        restaurant.retrieveAllDailyTotalPaidOrder();
-
-        //Then
+        // Then
         Assertions.assertEquals(totalPrice, restaurant.getDailyIncomes());
     }
 
