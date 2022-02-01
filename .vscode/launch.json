@@ -9,6 +9,16 @@
             "mainClass": "com.restaurant.exercice.ExerciceApplication",
             "projectName": "exercice",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-RestaurantApplication<exercice>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.restaurant.RestaurantApplication",
+            "projectName": "exercice",
+            "args": ""
         }
     ]
 }
