@@ -21,11 +21,6 @@ public class MainController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("/hello")
-    public ResponseEntity<String> hello() {
-        return ResponseEntity.ok().body("Hello");
-    }
-
     @GetMapping("/order/{id}")
     public ResponseEntity<Order> getOrder(@PathVariable Integer id) {
         return ResponseEntity.ok().body(orderService.getOrderById(id));
