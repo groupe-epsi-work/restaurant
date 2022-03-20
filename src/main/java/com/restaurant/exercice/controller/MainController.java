@@ -1,11 +1,14 @@
 package com.restaurant.exercice.controller;
 
+import java.util.Optional;
+
 import com.restaurant.exercice.model.Order;
 import com.restaurant.exercice.model.Restaurant;
 import com.restaurant.exercice.service.OrderService;
 import com.restaurant.exercice.service.RestaurantService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +24,21 @@ public class MainController {
     @Autowired
     private OrderService orderService;
 
+    @GetMapping
+    public ResponseEntity<String> welcomePage(){
+        return ResponseEntity.ok().body("Only orders are testable in this application please go to <strong>/order/{id}</strong>");
+    }
+
     @GetMapping("/order/{id}")
-    public ResponseEntity<Order> getOrder(@PathVariable Integer id) {
-        return ResponseEntity.ok().body(orderService.getOrderById(id));
+    public ResponseEntity getOrder(@PathVariable Integer id) {
+        Optional<Order> order = orderService.getOrderById(id);
+
+        if(order.isPresent()){
+            return ResponseEntity.ok().body(orderService.getOrderById(id).get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("This order does not exist");
+        }
+        
     }
 
     @PutMapping("/order/{id}/pay")

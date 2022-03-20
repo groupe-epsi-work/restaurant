@@ -2,6 +2,7 @@ package com.restaurant.exercice.service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import com.restaurant.exercice.enumeration.OrderStatus;
 import com.restaurant.exercice.model.Order;
@@ -24,8 +25,8 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public Order getOrderById(Integer id) {
-        return orderRepository.findById(id).get();
+    public Optional<Order> getOrderById(Integer id) {
+        return orderRepository.findById(id);
     }
 
     public void payOrder(Integer id) {

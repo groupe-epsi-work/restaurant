@@ -43,7 +43,7 @@ public class EpinglageTestIntegration {
 
         // When
         orderService.saveOrder(order);
-        Order orderFromDB = orderService.getOrderById(order.getId());
+        Order orderFromDB = orderService.getOrderById(order.getId()).get();
 
         // Then
         assertEquals(order.getId(), orderFromDB.getId());

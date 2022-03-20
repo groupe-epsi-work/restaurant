@@ -44,7 +44,7 @@ public class EpinglageTestSystem {
 
         order.setDate(order.getDate().minusDays(1));
         orderService.saveOrder(order);
-        Order retrievedOrder = orderService.getOrderById(order.getId());
+        Order retrievedOrder = orderService.getOrderById(order.getId()).get();
 
         assertEquals(order.getId(), retrievedOrder.getId());
         assertTrue(retrievedOrder.getOrderStatus().isUnpaid());
